@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║   VIỆT NAM CHUYỂN ĐỔI SỐ — Landing Page                        ║
+  ║   Dự án dự thi Tin học cấp Quốc gia                             ║
+  ║   Tác giả: Học sinh lớp 8 — Chủ đề: Chuyển đổi số Việt Nam    ║
+  ╚══════════════════════════════════════════════════════════════════╝
+
+  Cấu trúc file HTML này gồm các phần chính:
+  1. <head>   — Khai báo meta, tiêu đề và liên kết CSS
+  2. <header> — Thanh điều hướng (Navigation Bar)
+  3. #hero    — Màn hình chào / Banner chính
+  4. #stats   — Bộ đếm số liệu thống kê
+  5. #pillars — 3 trụ cột chuyển đổi số
+  6. #timeline — Hành trình chuyển đổi số
+  7. #showcase — Ứng dụng nổi bật
+  8. #cta     — Lời kêu gọi hành động
+  9. <footer> — Chân trang
+-->
+<html lang="vi">
+
+<head>
+  <!-- Khai báo bộ mã ký tự UTF-8 để hiển thị đúng tiếng Việt -->
+  <meta charset="UTF-8">
+
+  <!-- Thẻ viewport giúp trang web co giãn đúng trên điện thoại (responsive) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Mô tả ngắn giúp Google hiểu nội dung trang (SEO) -->
+  <meta name="description" content="Khám phá hành trình Chuyển đổi số của Việt Nam — từ VNeID, thanh toán QR đến lớp học thông minh.">
+
+  <!-- Tiêu đề hiển thị trên tab trình duyệt -->
+  <title>🇻🇳 Việt Nam Chuyển Đổi Số | Digital Vietnam 2030</title>
+
+  <!-- Liên kết đến file CSS riêng — giúp tách biệt phần trình bày khỏi nội dung -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════════════════════════════
+       THANH ĐIỀU HƯỚNG (NAVIGATION BAR)
+       - Hiển thị logo và các liên kết đến các mục trên trang
+       - Dùng thẻ <nav> (semantic HTML) để trình duyệt nhận biết đây là menu
+       ══════════════════════════════════════════════════════ -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Menu chính">
+
+    <!-- Logo thương hiệu: biểu tượng + tên dự án -->
+    <div class="nav-logo">
+      <!-- Ngôi sao 5 cánh — biểu tượng lá cờ Việt Nam -->
+      <span class="nav-star" aria-hidden="true">★</span>
+      <span class="nav-brand">VN<strong>Digital</strong></span>
+    </div>
+
+    <!-- Nút hamburger cho màn hình nhỏ (điện thoại)
+         aria-label: mô tả cho người dùng khiếm thị
+         aria-expanded: cho biết menu đang mở hay đóng -->
+    <button class="nav-toggle" id="navToggle"
+            aria-label="Mở/đóng menu"
+            aria-expanded="false"
+            aria-controls="navMenu">
+      <!-- Ba gạch ngang tạo biểu tượng "hamburger" -->
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+
+    <!-- Danh sách các liên kết điều hướng
+         role="menubar" — báo cho trình duyệt đây là thanh menu -->
+    <ul class="nav-menu" id="navMenu" role="menubar">
+      <!-- Mỗi <li> là một mục menu, href="#id" sẽ cuộn đến phần tương ứng -->
+      <li role="none"><a href="#hero"     class="nav-link" role="menuitem">Trang chủ</a></li>
+      <li role="none"><a href="#pillars"  class="nav-link" role="menuitem">Trụ cột</a></li>
+      <li role="none"><a href="#timeline" class="nav-link" role="menuitem">Hành trình</a></li>
+      <li role="none"><a href="#showcase" class="nav-link" role="menuitem">Ứng dụng</a></li>
+      <li role="none"><a href="#cta"      class="nav-link nav-cta" role="menuitem">Tham gia</a></li>
+    </ul>
+  </nav>
+
+
+  <!-- ══════════════════════════════════════════════════════
+       KHU VỰC CHÍNH (MAIN CONTENT)
+       Thẻ <main> xác định nội dung chính — quan trọng cho SEO và trợ năng
+       ══════════════════════════════════════════════════════ -->
+  <main>
+
+    <!-- ─────────────────────────────────────────────────────
+         PHẦN 1: HERO — MÀN HÌNH CHÀO HỎI
+         Phần đầu tiên người dùng nhìn thấy, gây ấn tượng mạnh
+         id="hero" giúp liên kết điều hướng cuộn đến đây
+         ───────────────────────────────────────────────────── -->
+    <section id="hero" class="hero-section" aria-labelledby="hero-title">
+
+      <!-- Lớp nền animation: các chấm tròn kết nối mô phỏng mạng lưới số -->
+      <canvas id="networkCanvas" class="hero-canvas" aria-hidden="true"></canvas>
+
+      <!-- Lớp phủ gradient để chữ dễ đọc trên nền canvas -->
+      <div class="hero-overlay" aria-hidden="true"></div>
+
+      <!-- Nội dung chính của hero -->
+      <div class="hero-content">
+
+        <!-- Nhãn nhỏ phía trên tiêu đề — "eyebrow text" -->
+        <p class="hero-eyebrow" aria-label="Chủ đề">
+          <span class="eyebrow-dot" aria-hidden="true"></span>
+          Việt Nam · Chuyển Đổi Số · 2030
+        </p>
+
+        <!-- Tiêu đề chính — id để nav link nhảy đến đúng vị trí -->
+        <h1 id="hero-title" class="hero-title">
+          <!-- Dòng 1: hiệu ứng xuất hiện chữ từng ký tự -->
+          <span class="title-line title-line--1">Việt Nam</span>
+          <!-- Dòng 2: chữ nhấn mạnh với màu sắc đặc biệt -->
+          <span class="title-line title-line--2">
+            <em class="title-accent">Số Hóa</em>
+          </span>
+          <!-- Dòng 3 -->
+          <span class="title-line title-line--3">Tương Lai</span>
+        </h1>
+
+        <!-- Mô tả ngắn bên dưới tiêu đề -->
+        <p class="hero-desc">
+          Hành trình chuyển mình của một quốc gia — từ giấy tờ thủ công
+          đến chính phủ điện tử, từ tiền mặt đến QR Code,
+          từ bảng đen phấn trắng đến lớp học thông minh.
+        </p>
+
+        <!-- Nhóm nút hành động -->
+        <div class="hero-actions">
+          <!-- Nút chính: cuộn xuống xem nội dung -->
+          <a href="#pillars" class="btn btn-primary" aria-label="Khám phá ngay">
+            <span>Khám Phá Ngay</span>
+            <!-- Mũi tên SVG nhỏ bên cạnh chữ -->
+            <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 4l-1.4 1.4L16.2 11H4v2h12.2l-5.6 5.6L12 20l8-8-8-8z"/>
+            </svg>
+          </a>
+          <!-- Nút phụ: xem thống kê -->
+          <a href="#stats" class="btn btn-secondary">Xem Số Liệu</a>
+        </div>
+      </div>
+
+      <!-- Chỉ báo cuộn xuống (scroll indicator) — hiệu ứng nảy lên xuống -->
+      <div class="scroll-indicator" aria-hidden="true">
+        <div class="scroll-mouse">
+          <div class="scroll-wheel"></div>
+        </div>
+        <p class="scroll-text">Cuộn xuống</p>
+      </div>
+    </section>
+
+
+    <!-- ─────────────────────────────────────────────────────
+         PHẦN 2: THỐNG KÊ — BỘ ĐẾM SỐ LIỆU
+         Các con số biết nói — tự động đếm lên khi người dùng cuộn đến
+         ───────────────────────────────────────────────────── -->
+    <section id="stats" class="stats-section" aria-labelledby="stats-title">
+
+      <!-- Tiêu đề mục — ẩn với người dùng thường nhưng cần cho screen reader -->
+      <h2 id="stats-title" class="sr-only">Số liệu thống kê chuyển đổi số Việt Nam</h2>
+
+      <!-- Dải băng chạy ngang hiển thị thông tin nhanh -->
+      <div class="stats-ticker" aria-hidden="true">
+        <div class="ticker-track">
+          <!-- Nội dung được nhân đôi để tạo hiệu ứng chạy vô tận -->
+          <span class="ticker-item">🇻🇳 97 triệu dân</span>
+          <span class="ticker-sep">·</span>
+          <span class="ticker-item">📱 Top 10 thị trường mobile</span>
+          <span class="ticker-sep">·</span>
+          <span class="ticker-item">🌐 73% dân số dùng Internet</span>
+          <span class="ticker-sep">·</span>
+          <span class="ticker-item">💳 Tăng trưởng fintech #1 Đông Nam Á</span>
+          <span class="ticker-sep">·</span>
+          <span class="ticker-item">🏫 63 tỉnh thành triển khai học trực tuyến</span>
+          <span class="ticker-sep">·</span>
+          <!-- Bản sao để chạy liên tục -->
+          <span class="ticker-item">🇻🇳 97 triệu dân</span>
+          <span class="ticker-sep">·</span>
+          <span class="ticker-item">📱 Top 10 thị trường mobile</span>
+          <span class="ticker-sep">·</span>
+          <span class="ticker-item">🌐 73% dân số dùng Internet</span>
+          <span class="ticker-sep">·</span>
+          <span class="ticker-item">💳 Tăng trưởng fintech #1 Đông Nam Á</span>
+          <span class="ticker-sep">·</span>
+          <span class="ticker-item">🏫 63 tỉnh thành triển khai học trực tuyến</span>
+          <span class="ticker-sep">·</span>
+        </div>
+      </div>
+
+      <!-- Lưới các thẻ số liệu -->
+      <div class="stats-grid">
+
+        <!-- Mỗi thẻ stat-card chứa: icon + số đếm + đơn vị + mô tả
+             data-target: giá trị đích để JavaScript đếm đến
+             data-suffix: hậu tố thêm vào sau số (triệu, %, ...) -->
+        <div class="stat-card" data-target="73" data-suffix="%" aria-label="73% người Việt dùng Internet">
+          <div class="stat-icon" aria-hidden="true">🌐</div>
+          <div class="stat-number">
+            <span class="counter" data-target="73">0</span>
+            <span class="stat-suffix">%</span>
+          </div>
+          <p class="stat-label">Người dùng Internet</p>
+          <p class="stat-desc">Tỉ lệ dân số Việt Nam kết nối mạng năm 2024</p>
+        </div>
+
+        <div class="stat-card" data-target="85" data-suffix="%" aria-label="85 triệu tài khoản thanh toán di động">
+          <div class="stat-icon" aria-hidden="true">💳</div>
+          <div class="stat-number">
+            <span class="counter" data-target="85">0</span>
+            <span class="stat-suffix">tr+</span>
+          </div>
+          <p class="stat-label">Tài khoản thanh toán số</p>
+          <p class="stat-desc">Người dùng ví điện tử và mobile banking</p>
+        </div>
+
+        <div class="stat-card" data-target="57" data-suffix="tr" aria-label="57 triệu người dùng VNeID">
+          <div class="stat-icon" aria-hidden="true">🪪</div>
+          <div class="stat-number">
+            <span class="counter" data-target="57">0</span>
+            <span class="stat-suffix">tr</span>
+          </div>
+          <p class="stat-label">Người dùng VNeID</p>
+          <p class="stat-desc">Ứng dụng định danh công dân số quốc gia</p>
+        </div>
+
+        <div class="stat-card" data-target="2030" data-suffix="" aria-label="Mục tiêu số hóa năm 2030">
+          <div class="stat-icon" aria-hidden="true">🎯</div>
+          <div class="stat-number">
+            <span class="counter" data-target="2030">2024</span>
+            <span class="stat-suffix"></span>
+          </div>
+          <p class="stat-label">Mục tiêu chuyển đổi số</p>
+          <p class="stat-desc">Đề án quốc gia Chuyển đổi số Việt Nam</p>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ─────────────────────────────────────────────────────
+         PHẦN 3: 3 TRỤ CỘT CHUYỂN ĐỔI SỐ
+         VNeID · Thanh toán QR · Lớp học thông minh
+         ───────────────────────────────────────────────────── -->
+    <section id="pillars" class="pillars-section" aria-labelledby="pillars-title">
+
+      <!-- Phần tiêu đề mục với nhãn nhỏ phía trên -->
+      <div class="section-header">
+        <span class="section-eyebrow">Ba Trụ Cột</span>
+        <h2 id="pillars-title" class="section-title">
+          Chuyển Đổi Số <br>
+          <span class="text-accent">Thay Đổi Cuộc Sống</span>
+        </h2>
+        <p class="section-desc">
+          Ba lĩnh vực then chốt đang biến đổi cách người Việt Nam
+          làm việc với nhà nước, mua sắm, và học tập mỗi ngày.
+        </p>
+      </div>
+
+      <!-- Lưới 3 cột — mỗi cột là một "trụ cột" -->
+      <div class="pillars-grid">
+
+        <!-- ── TRỤ CỘT 1: VNeID ── -->
+        <!-- class="pillar-card" + thuộc tính data-pillar để JS nhận biết -->
+        <article class="pillar-card pillar-card--gov"
+                 data-pillar="1"
+                 aria-labelledby="pillar-1-title">
+
+          <!-- Icon lớn đặc trưng của mỗi trụ cột -->
+          <div class="pillar-icon-wrap" aria-hidden="true">
+            <div class="pillar-icon-bg"></div>
+            <span class="pillar-icon">🪪</span>
+          </div>
+
+          <!-- Số thứ tự — hiển thị to ở góc nền (decorative) -->
+          <span class="pillar-num" aria-hidden="true">01</span>
+
+          <div class="pillar-body">
+            <!-- Nhãn danh mục -->
+            <p class="pillar-category">Chính Phủ Điện Tử</p>
+
+            <!-- Tên trụ cột — id để aria-labelledby liên kết -->
+            <h3 id="pillar-1-title" class="pillar-title">VNeID</h3>
+
+            <!-- Mô tả ngắn -->
+            <p class="pillar-desc">
+              Ứng dụng định danh số quốc gia thay thế hàng chục loại
+              giấy tờ vật lý — từ CCCD, hộ khẩu đến bằng lái xe.
+            </p>
+
+            <!-- Danh sách tính năng nổi bật -->
+            <ul class="pillar-features" aria-label="Tính năng VNeID">
+              <li class="feature-item">
+                <span class="feature-check" aria-hidden="true">✓</span>
+                Định danh công dân số (eID)
+              </li>
+              <li class="feature-item">
+                <span class="feature-check" aria-hidden="true">✓</span>
+                Xử lý thủ tục hành chính online
+              </li>
+              <li class="feature-item">
+                <span class="feature-check" aria-hidden="true">✓</span>
+                Kết nối 25+ dịch vụ công quốc gia
+              </li>
+              <li class="feature-item">
+                <span class="feature-check" aria-hidden="true">✓</span>
+                Bảo mật sinh trắc học (vân tay, khuôn mặt)
+              </li>
+            </ul>
+
+            <!-- Chỉ số tác động -->
+            <div class="pillar-impact">
+              <span class="impact-num">57 triệu</span>
+              <span class="impact-text">người dùng đã đăng ký</span>
+            </div>
+          </div>
+
+          <!-- Thẻ minh họa giao diện giả -->
+          <div class="pillar-mockup pillar-mockup--id" aria-hidden="true">
+            <div class="id-card-mock">
+              <div class="id-mock-header">
+                <span class="id-mock-flag">🇻🇳</span>
+                <span class="id-mock-title">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</span>
+              </div>
+              <div class="id-mock-body">
+                <div class="id-mock-photo"></div>
+                <div class="id-mock-info">
+                  <div class="id-mock-line id-mock-line--name"></div>
+                  <div class="id-mock-line id-mock-line--dob"></div>
+                  <div class="id-mock-line id-mock-line--address"></div>
+                </div>
+              </div>
+              <div class="id-mock-chip">
+                <div class="chip-contacts"></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+
+        <!-- ── TRỤ CỘT 2: THANH TOÁN QR ── -->
+        <article class="pillar-card pillar-card--payment"
+                 data-pillar="2"
+                 aria-labelledby="pillar-2-title">
+
+          <div class="pillar-icon-wrap" aria-hidden="true">
+            <div class="pillar-icon-bg"></div>
+            <span class="pillar-icon">📱</span>
+          </div>
+
+          <span class="pillar-num" aria-hidden="true">02</span>
+
+          <div class="pillar-body">
+            <p class="pillar-category">Kinh Tế Số</p>
+            <h3 id="pillar-2-title" class="pillar-title">Thanh Toán QR</h3>
+            <p class="pillar-desc">
+              Quét mã — trả tiền. VietQR thống nhất mọi ngân hàng
+              và ví điện tử, giúp người Việt mua hàng không cần tiền mặt.
+            </p>
+
+            <ul class="pillar-features" aria-label="Tính năng thanh toán QR">
+              <li class="feature-item">
+                <span class="feature-check" aria-hidden="true">✓</span>
+                VietQR chuẩn liên ngân hàng
+              </li>
+              <li class="feature-item">
+                <span class="feature-check" aria-hidden="true">✓</span>
+                Tích hợp 40+ ngân hàng và ví điện tử
+              </li>
+              <li class="feature-item">
+                <span class="feature-check" aria-hidden="true">✓</span>
+                Giao dịch tức thì, bảo mật OTP
+              </li>
+              <li class="feature-item">
+                <span class="feature-check" aria-hidden="true">✓</span>
+                Phủ sóng từ siêu thị đến chợ dân sinh
+              </li>
+            </ul>
+
+            <div class="pillar-impact">
+              <span class="impact-num">7,4 tỉ</span>
+              <span class="impact-text">giao dịch QR mỗi năm (2024)</span>
+            </div>
+          </div>
+
+          <!-- Mockup mã QR giả -->
+          <div class="pillar-mockup pillar-mockup--qr" aria-hidden="true">
+            <div class="qr-phone-mock">
+              <div class="qr-phone-screen">
+                <p class="qr-mock-label">VietQR</p>
+                <!-- Mã QR được vẽ bằng CSS thuần — không dùng ảnh -->
+                <div class="qr-grid" id="qrGrid" role="img" aria-label="Mã QR minh họa"></div>
+                <p class="qr-mock-bank">Ngân hàng VCB · **** 8888</p>
+                <p class="qr-mock-amount">50.000 ₫</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+
+        <!-- ── TRỤ CỘT 3: LỚP HỌC THÔNG MINH ── -->
+        <article class="pillar-card pillar-card--edu"
+                 data-pillar="3"
+                 aria-labelledby="pillar-3-title">
+
+          <div class="pillar-icon-wrap" aria-hidden="true">
+            <div class="pillar-icon-bg"></div>
+            <span class="pillar-icon">🏫</span>
+          </div>
+
+          <span class="pillar-num" aria-hidden="true">03</span>
+
+          <div class="pillar-body">
+            <p class="pillar-category">Xã Hội Số</p>
+            <h3 id="pillar-3-title" class="pillar-title">Lớp Học Thông Minh</h3>
+            <p class="pillar-desc">
+              Bảng đen phấn trắng nhường chỗ cho màn hình tương tác,
+              AI cá nhân hóa bài học và học sinh học mọi lúc, mọi nơi.
+            </p>
+
+            <ul class="pillar-features" aria-label="Tính năng lớp học thông minh">
+              <li class="feature-item">
+                <span class="feature-check" aria-hidden="true">✓</span>
+                Bảng tương tác thông minh (IWB)
+              </li>
+              <li class="feature-item">
+                <span class="feature-check" aria-hidden="true">✓</span>
+                AI chấm bài và gợi ý học theo năng lực
+              </li>
+              <li class="feature-item">
+                <span class="feature-check" aria-hidden="true">✓</span>
+                Học liệu số đa phương tiện (video, 3D)
+              </li>
+              <li class="feature-item">
+                <span class="feature-check" aria-hidden="true">✓</span>
+                Kết nối phụ huynh - thầy cô - học sinh
+              </li>
+            </ul>
+
+            <div class="pillar-impact">
+              <span class="impact-num">22 triệu</span>
+              <span class="impact-text">học sinh tiếp cận học liệu số</span>
+            </div>
+          </div>
+
+          <!-- Mockup giao diện lớp học giả -->
+          <div class="pillar-mockup pillar-mockup--edu" aria-hidden="true">
+            <div class="edu-screen-mock">
+              <div class="edu-mock-header">
+                <span class="edu-mock-dot edu-mock-dot--red"></span>
+                <span class="edu-mock-dot edu-mock-dot--yellow"></span>
+                <span class="edu-mock-dot edu-mock-dot--green"></span>
+                <span class="edu-mock-title-bar">Lớp học Trực tuyến</span>
+              </div>
+              <div class="edu-mock-body">
+                <div class="edu-mock-video"></div>
+                <div class="edu-mock-chat">
+                  <div class="chat-bubble chat-bubble--teacher">📚 Mở bài 5</div>
+                  <div class="chat-bubble chat-bubble--student">✋ Em hiểu rồi!</div>
+                  <div class="chat-bubble chat-bubble--ai">🤖 AI: Gợi ý thêm...</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div><!-- /pillars-grid -->
+    </section>
+
+
+    <!-- ─────────────────────────────────────────────────────
+         PHẦN 4: TIMELINE — HÀNH TRÌNH CHUYỂN ĐỔI SỐ
+         Dòng thời gian các cột mốc quan trọng
+         ───────────────────────────────────────────────────── -->
+    <section id="timeline" class="timeline-section" aria-labelledby="timeline-title">
+
+      <div class="section-header section-header--dark">
+        <span class="section-eyebrow section-eyebrow--light">Dòng Thời Gian</span>
+        <h2 id="timeline-title" class="section-title section-title--light">
+          Hành Trình <span class="text-accent">Số Hóa</span>
+        </h2>
+      </div>
+
+      <!-- Đường kẻ dọc ở giữa timeline -->
+      <div class="timeline-track" aria-hidden="true"></div>
+
+      <!-- Danh sách các cột mốc thời gian
+           role="list" và role="listitem" giúp screen reader hiểu đây là danh sách -->
+      <ol class="timeline-list" role="list" aria-label="Các cột mốc chuyển đổi số">
+
+        <!-- Mỗi timeline-item: năm + tiêu đề + mô tả
+             data-year: để JS xử lý animation
+             class "--left" hoặc "--right" xen kẽ để bố cục đẹp -->
+        <li class="timeline-item timeline-item--left" role="listitem" data-year="2015">
+          <div class="timeline-dot" aria-hidden="true">
+            <span class="timeline-year">2015</span>
+          </div>
+          <div class="timeline-content">
+            <span class="timeline-tag">Nền Tảng</span>
+            <h3 class="timeline-event">Triển khai mạng 4G toàn quốc</h3>
+            <p class="timeline-detail">
+              Nền tảng kết nối di động tốc độ cao phủ sóng hầu hết
+              địa bàn, mở ra kỷ nguyên smartphone bùng nổ tại Việt Nam.
+            </p>
+          </div>
+        </li>
+
+        <li class="timeline-item timeline-item--right" role="listitem" data-year="2018">
+          <div class="timeline-dot" aria-hidden="true">
+            <span class="timeline-year">2018</span>
+          </div>
+          <div class="timeline-content">
+            <span class="timeline-tag">Tài Chính Số</span>
+            <h3 class="timeline-event">VietQR — Chuẩn QR liên ngân hàng</h3>
+            <p class="timeline-detail">
+              Việt Nam ra mắt tiêu chuẩn QR thống nhất cho thanh toán,
+              lần đầu tiên cho phép chuyển tiền giữa mọi ngân hàng chỉ
+              bằng một mã duy nhất.
+            </p>
+          </div>
+        </li>
+
+        <li class="timeline-item timeline-item--left" role="listitem" data-year="2020">
+          <div class="timeline-dot" aria-hidden="true">
+            <span class="timeline-year">2020</span>
+          </div>
+          <div class="timeline-content">
+            <span class="timeline-tag">Giáo Dục Số</span>
+            <h3 class="timeline-event">Cú hích học trực tuyến từ COVID-19</h3>
+            <p class="timeline-detail">
+              Đại dịch buộc 22 triệu học sinh chuyển sang học online
+              chỉ trong vài tuần, thúc đẩy hạ tầng giáo dục số nhảy
+              vọt 5 năm.
+            </p>
+          </div>
+        </li>
+
+        <li class="timeline-item timeline-item--right" role="listitem" data-year="2021">
+          <div class="timeline-dot" aria-hidden="true">
+            <span class="timeline-year">2021</span>
+          </div>
+          <div class="timeline-content">
+            <span class="timeline-tag">Chính Phủ Số</span>
+            <h3 class="timeline-event">Ra mắt ứng dụng VNeID</h3>
+            <p class="timeline-detail">
+              Ứng dụng định danh số quốc gia chính thức được triển khai,
+              cho phép công dân thực hiện thủ tục hành chính hoàn toàn
+              trên điện thoại.
+            </p>
+          </div>
+        </li>
+
+        <li class="timeline-item timeline-item--left" role="listitem" data-year="2023">
+          <div class="timeline-dot" aria-hidden="true">
+            <span class="timeline-year">2023</span>
+          </div>
+          <div class="timeline-content">
+            <span class="timeline-tag">AI & Dữ Liệu</span>
+            <h3 class="timeline-event">Cơ sở dữ liệu quốc gia dân cư</h3>
+            <p class="timeline-detail">
+              Hoàn thành kết nối dữ liệu 97 triệu dân trên một nền tảng
+              duy nhất, là "xương sống" cho mọi dịch vụ số của Chính phủ.
+            </p>
+          </div>
+        </li>
+
+        <li class="timeline-item timeline-item--right" role="listitem" data-year="2025">
+          <div class="timeline-dot timeline-dot--active" aria-hidden="true">
+            <span class="timeline-year">2025</span>
+          </div>
+          <div class="timeline-content timeline-content--active">
+            <span class="timeline-tag timeline-tag--active">Hiện Tại ★</span>
+            <h3 class="timeline-event">5G · AI · Smart City bùng nổ</h3>
+            <p class="timeline-detail">
+              Mạng 5G phủ sóng các đô thị lớn, AI tích hợp vào y tế,
+              giáo dục và giao thông, Hà Nội và TP.HCM tiến vào
+              bản đồ thành phố thông minh thế giới.
+            </p>
+          </div>
+        </li>
+
+        <li class="timeline-item timeline-item--left timeline-item--future" role="listitem" data-year="2030">
+          <div class="timeline-dot timeline-dot--future" aria-hidden="true">
+            <span class="timeline-year">2030</span>
+          </div>
+          <div class="timeline-content">
+            <span class="timeline-tag timeline-tag--future">Mục Tiêu 🎯</span>
+            <h3 class="timeline-event">Việt Nam trong top 50 quốc gia số</h3>
+            <p class="timeline-detail">
+              Mục tiêu đề án quốc gia: kinh tế số chiếm 30% GDP,
+              100% dịch vụ công trực tuyến, toàn dân có danh tính số.
+            </p>
+          </div>
+        </li>
+
+      </ol>
+    </section>
+
+
+    <!-- ─────────────────────────────────────────────────────
+         PHẦN 5: SHOWCASE — ỨNG DỤNG NỔI BẬT
+         Demo tương tác: Thẻ ứng dụng lật/mở rộng
+         ───────────────────────────────────────────────────── -->
+    <section id="showcase" class="showcase-section" aria-labelledby="showcase-title">
+
+      <div class="section-header">
+        <span class="section-eyebrow">Ứng Dụng Thực Tế</span>
+        <h2 id="showcase-title" class="section-title">
+          Số Hóa Trong <span class="text-accent">Cuộc Sống</span>
+        </h2>
+        <p class="section-desc">
+          Nhấp vào từng thẻ để xem chi tiết — những ứng dụng quen thuộc mỗi ngày.
+        </p>
+      </div>
+
+      <!-- Lưới thẻ ứng dụng có hiệu ứng flip/expand khi click -->
+      <div class="apps-grid" role="list" aria-label="Các ứng dụng số phổ biến">
+
+        <!-- Mỗi app-card: bấm để mở rộng xem thêm
+             tabindex="0": cho phép điều hướng bằng bàn phím
+             aria-expanded: cho screen reader biết trạng thái -->
+        <div class="app-card" role="listitem" tabindex="0"
+             aria-expanded="false" aria-label="Ứng dụng VNeID">
+          <div class="app-card-inner">
+            <div class="app-icon-large" aria-hidden="true">🪪</div>
+            <h3 class="app-name">VNeID</h3>
+            <p class="app-tagline">Căn cước công dân số</p>
+            <div class="app-detail">
+              <p>Thay thế 14 loại giấy tờ, cho phép xác thực danh tính khi mở tài khoản ngân hàng, đăng ký xe, và hàng chục thủ tục khác hoàn toàn qua điện thoại.</p>
+              <a href="#pillars" class="app-link">Tìm hiểu thêm →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-card" role="listitem" tabindex="0"
+             aria-expanded="false" aria-label="Ứng dụng VietQR">
+          <div class="app-card-inner">
+            <div class="app-icon-large" aria-hidden="true">📲</div>
+            <h3 class="app-name">VietQR</h3>
+            <p class="app-tagline">Thanh toán không tiền mặt</p>
+            <div class="app-detail">
+              <p>Một mã QR, mọi ngân hàng. Từ quán nước vỉa hè đến siêu thị lớn, người Việt quét mã và hoàn tất thanh toán trong 3 giây.</p>
+              <a href="#pillars" class="app-link">Tìm hiểu thêm →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-card" role="listitem" tabindex="0"
+             aria-expanded="false" aria-label="Ứng dụng VssID">
+          <div class="app-card-inner">
+            <div class="app-icon-large" aria-hidden="true">🏥</div>
+            <h3 class="app-name">VssID</h3>
+            <p class="app-tagline">Bảo hiểm xã hội số</p>
+            <div class="app-detail">
+              <p>Tra cứu quá trình đóng bảo hiểm, khám bệnh không cần thẻ cứng, và nhận thông báo chính sách trực tiếp trên điện thoại.</p>
+              <a href="#pillars" class="app-link">Tìm hiểu thêm →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-card" role="listitem" tabindex="0"
+             aria-expanded="false" aria-label="Sổ sức khỏe điện tử">
+          <div class="app-card-inner">
+            <div class="app-icon-large" aria-hidden="true">💊</div>
+            <h3 class="app-name">Sức Khỏe Điện Tử</h3>
+            <p class="app-tagline">Bệnh viện thông minh</p>
+            <div class="app-detail">
+              <p>Đặt lịch khám online, nhận kết quả xét nghiệm qua app, lịch sử bệnh án số theo suốt cả cuộc đời người bệnh.</p>
+              <a href="#pillars" class="app-link">Tìm hiểu thêm →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-card" role="listitem" tabindex="0"
+             aria-expanded="false" aria-label="Học bạ điện tử">
+          <div class="app-card-inner">
+            <div class="app-icon-large" aria-hidden="true">📚</div>
+            <h3 class="app-name">Học Bạ Số</h3>
+            <p class="app-tagline">Giáo dục không giấy tờ</p>
+            <div class="app-detail">
+              <p>Học bạ, điểm số, thời khóa biểu và liên lạc gia đình — tất cả trên một nền tảng số, phụ huynh theo dõi được từ xa.</p>
+              <a href="#pillars" class="app-link">Tìm hiểu thêm →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-card" role="listitem" tabindex="0"
+             aria-expanded="false" aria-label="Giao thông thông minh">
+          <div class="app-card-inner">
+            <div class="app-icon-large" aria-hidden="true">🚦</div>
+            <h3 class="app-name">Giao Thông Số</h3>
+            <p class="app-tagline">Đường thông minh</p>
+            <div class="app-detail">
+              <p>Camera AI phạt nguội tự động, hệ thống thu phí không dừng ETC, và ứng dụng chỉ đường thời gian thực tránh kẹt xe.</p>
+              <a href="#pillars" class="app-link">Tìm hiểu thêm →</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ─────────────────────────────────────────────────────
+         PHẦN 6: CTA — LỜI KÊU GỌI HÀNH ĐỘNG
+         Phần kết thúc, khuyến khích người xem tham gia
+         ───────────────────────────────────────────────────── -->
+    <section id="cta" class="cta-section" aria-labelledby="cta-title">
+
+      <!-- Nền particle nhỏ trang trí -->
+      <div class="cta-particles" aria-hidden="true">
+        <!-- Các vòng tròn trang trí được tạo bằng CSS -->
+        <span class="cta-circle cta-circle--1"></span>
+        <span class="cta-circle cta-circle--2"></span>
+        <span class="cta-circle cta-circle--3"></span>
+        <span class="cta-circle cta-circle--4"></span>
+      </div>
+
+      <div class="cta-content">
+        <!-- Logo nước Việt Nam ở giữa -->
+        <div class="cta-emblem" aria-hidden="true">
+          <div class="emblem-ring emblem-ring--outer"></div>
+          <div class="emblem-ring emblem-ring--inner"></div>
+          <span class="emblem-star">★</span>
+        </div>
+
+        <h2 id="cta-title" class="cta-title">
+          Thế Hệ Số <span class="text-accent">Tạo Ra Tương Lai</span>
+        </h2>
+        <p class="cta-desc">
+          Bạn — những học sinh của hôm nay — chính là những người sẽ
+          xây dựng và vận hành Việt Nam số hóa của ngày mai.
+          Học Tin học, học lập trình, học tư duy số —
+          đó là hành trang quan trọng nhất của thế kỷ 21.
+        </p>
+
+        <!-- Dải hiển thị kỹ năng quan trọng -->
+        <div class="skills-strip" aria-label="Các kỹ năng số quan trọng">
+          <span class="skill-badge">💻 Lập Trình</span>
+          <span class="skill-badge">🤖 Trí Tuệ Nhân Tạo</span>
+          <span class="skill-badge">🔐 An Toàn Mạng</span>
+          <span class="skill-badge">📊 Khoa Học Dữ Liệu</span>
+          <span class="skill-badge">☁️ Điện Toán Đám Mây</span>
+        </div>
+
+        <!-- Nút hành động -->
+        <div class="cta-actions">
+          <a href="#hero" class="btn btn-primary btn-large">
+            <span>Xem Lại Từ Đầu</span>
+            <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 12l1.4 1.4L11 7.8V20h2V7.8l5.6 5.6L20 12l-8-8-8 8z"/>
+            </svg>
+          </a>
+          <a href="#pillars" class="btn btn-outline">Khám Phá Trụ Cột</a>
+        </div>
+
+        <!-- Thông tin dự án -->
+        <p class="cta-credit">
+          Dự án Tin học · Lớp 8 · Cuộc thi Quốc gia ·
+          Chủ đề: Chuyển đổi số Việt Nam 2030
+        </p>
+      </div>
+    </section>
+
+  </main><!-- /main -->
+
+
+  <!-- ══════════════════════════════════════════════════════
+       CHÂN TRANG (FOOTER)
+       Thẻ <footer> chứa thông tin bổ sung và bản quyền
+       ══════════════════════════════════════════════════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+
+      <!-- Logo và tagline -->
+      <div class="footer-brand">
+        <span class="footer-star" aria-hidden="true">★</span>
+        <span class="footer-name">VN<strong>Digital</strong></span>
+        <p class="footer-tagline">Việt Nam · Chuyển Đổi Số · 2030</p>
+      </div>
+
+      <!-- Liên kết mục -->
+      <nav class="footer-nav" aria-label="Điều hướng chân trang">
+        <a href="#hero">Trang chủ</a>
+        <a href="#pillars">Trụ cột</a>
+        <a href="#timeline">Hành trình</a>
+        <a href="#showcase">Ứng dụng</a>
+      </nav>
+
+      <!-- Thông tin tác giả và dự án -->
+      <p class="footer-copy">
+        Được thiết kế và lập trình bằng HTML · CSS · JavaScript thuần
+        · Dự án dự thi Tin học Quốc gia
+      </p>
+    </div>
+  </footer>
+
+
+  <!-- Liên kết đến file JavaScript — đặt ở cuối body để HTML tải trước -->
+  <script src="script.js"></script>
+
+</body>
+</html>
